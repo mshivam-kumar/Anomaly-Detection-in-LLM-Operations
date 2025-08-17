@@ -1,0 +1,74 @@
+Detailed configuration explanation used for generating realistic synthetic llm operations dataset
+
+1. Project and Time Settings
+This section defines the overall structure and timeline of the dataset.
+
+"BASE_DIR": "."
+What it is: The main folder where your project lives.
+Purpose: Used as a starting point to create subdirectories, keeping your project organized. The code will create a llm_ops_data folder inside this directory.
+
+"START_DATE": datetime(2024, 1, 1)
+What it is: The absolute "Day Zero" for the entire simulation.
+Purpose: It acts as the fixed, global reference point for calculating the long-term Concept Drift. The drift is calculated based on the number of days that have passed since this specific date, ensuring it's a smooth, continuous increase across the train, validation, and test sets.
+
+"TRAIN_MONTHS": 9
+What it is: The duration of the Training Set.
+Purpose: This creates 9 months of 100% normal data. The model uses this large dataset to learn the complex patterns of normal operation, including daily/weekly cycles and the slow concept drift. A long training period is crucial for the model to build a robust understanding of "normalcy."
+
+"VALIDATION_MONTHS": 1
+What it is: The duration of the Validation Set.
+Purpose: This creates 1 month of 100% normal data that the model has never seen during training. This set is used during the training process to check for overfitting and to determine which version (epoch) of the model is the best. It's a fair, unbiased exam to see how well the model reconstructs unseen normal data.
+
+"TEST_MONTHS": 2
+What it is: The duration of the Test Set.
+Purpose: This creates a 2-month period where we will inject our programmed anomalies. This dataset is kept completely separate and is only used at the very end to evaluate the final, trained model's ability to detect problems. The longer 2-month period allows for anomalies to be spaced out realistically.
+
+
+2. User Population Settings
+This section defines the users who will be interacting with the LLM service.
+
+"NUM_USERS": 5000
+What it is: The total number of unique users in the simulation.
+Purpose: A large user base makes the simulation more realistic and complex than a system with only a few users.
+
+"USER_PERSONAS": { ... }
+What it is: A dictionary that defines different types of user behavior. This is crucial for making the data non-uniform.
+Purpose: It simulates a real-world scenario where you have different customer segments.
+'casual': Represents the majority of users (IDs 1 to 4000). They make fewer requests (50/day) with smaller prompts and completions.
+'power': Represents a smaller group of heavy users (IDs 4001 to 5000). They are much more active (400/day) and use significantly more tokens. The (mean, std_dev) tuples ensure their usage has natural variation.
+
+
+3. System Behavior Settings
+This section defines the "normal" operational characteristics of the LLM service itself.
+
+"LATENCY_NORMAL": (250, 50)
+What it is: The normal response time, defined as a statistical distribution with a mean of 250ms and a standard deviation of 50ms.
+Purpose: This simulates the baseline performance of the service. Most requests will take around 250ms, but there will be natural, non-anomalous fluctuations.
+
+"ERROR_RATE_NORMAL": 0.01
+What it is: The normal background failure rate.
+Purpose: This makes the simulation realistic. In any real system, a small fraction (1%) of requests fail for non-anomalous reasons (network glitches, etc.). The model must learn that this low error rate is part of "normal."
+
+"LATENCY_DRIFT_PER_DAY": 0.1 and "TOKEN_DRIFT_PER_DAY": 0.05
+What they are: These control the Concept Drift. Each day, the average latency will increase by 0.1ms, and the average token counts will increase by 0.05.
+Purpose: This is an advanced feature that simulates a system slowly becoming more complex or loaded over time. The model cannot simply learn one static "normal"; it must learn a slowly evolving baseline. This makes the anomaly detection task much more challenging and realistic.
+
+
+4. Anomaly Injection Settings
+This section defines the specific "bad events" that will be programmed into the Test Set only.
+
+"ABUSIVE_USER_ID": 4500
+What it is: The specific user ID that will perform the "Token Abuse" anomaly.
+Purpose: This ID was chosen to be a "power user," making the token abuse more significant and realistic.
+
+"ABUSIVE_TOKEN_MULTIPLIER": 15
+What it is: A multiplier for the token abuse anomaly.
+Purpose: During the anomaly window, user 4500's prompt and completion tokens will be 15 times higher than their normal usage, simulating a costly runaway process or malicious use.
+
+"LATENCY_SPIKE_MULTIPLIER": 4
+What it is: A multiplier for the latency degradation anomaly.
+Purpose: During this anomaly window, the latency of all requests from all users will be 4 times higher than normal, simulating a system-wide performance issue.
+
+"DOS_ATTACK_MULTIPLIER": 50
+What it is: A multiplier for the Denial of Service attack.
+Purpose: During this short, intense anomaly, a new user will generate requests at a rate 50 times higher than a normal casual user, simulating a flood of traffic designed to overwhelm the service.

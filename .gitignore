@@ -1,0 +1,7 @@
+/checkpoints
+/data
+/data_5_months
+/notebooks
+
+/__pycache__
+*.pyc
