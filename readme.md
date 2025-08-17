@@ -1,6 +1,6 @@
 # Unsupervised Anomaly Detection in LLM Operations (AIOps)
 
-![Final Anomaly Plot](https://raw.githubusercontent.com/mshivam-kumar/Anomaly-Detection-in-LLM-Operations/main/outputs/plots/final_anomaly_plot_sensitive.png)
+![Final Anomaly Plot](https://raw.githubusercontent.com/mshivam-kumar/Anomaly-Detection-in-LLM-Operations/main/outputs/plots/final_anomaly_plot_sensitive_th.png)
 
 ## Overview
 
@@ -27,7 +27,7 @@ A sophisticated dataset was generated to simulate a year of LLM API logs. This w
 - **User Personas:** A mix of "casual" and "power" users with different activity levels and token usage.
 - **Concept Drift:** A gradual increase in latency and token counts over the year, forcing the model to learn an evolving baseline of "normalcy."
 
-![Data Pattern Plot](https://raw.githubusercontent.com/mshivam-kumar/Anomaly-Detection-in-LLM-Operations/main/outputs/plots/diurnal_pattern_visualization.png)
+![Data Pattern Plot](https://raw.githubusercontent.com/mshivam-kumar/Anomaly-Detection-in-LLM-Operations/main/outputs/plots/eda/train_dataset_time_series.png)
 *(Example of the diurnal (daily) pattern generated for the training data)*
 
 ### 2. Feature Engineering
@@ -41,7 +41,7 @@ An LSTM Autoencoder was built in PyTorch. The model was trained for over 100 epo
 - **Early Stopping:** Automatically halts training to prevent overfitting and save time.
 - **Dropout Regularization:** Improves the model's ability to generalize to unseen data.
 
-![Train/Val Loss Plot](https://raw.githubusercontent.com/mshivam-kumar/Anomaly-Detection-in-LLM-Operations/main/outputs/plots/train_val_loss.png)
+![Train/Val Loss Plot](https://raw.githubusercontent.com/mshivam-kumar/Anomaly-Detection-in-LLM-Operations/main/outputs/plots/train_val_loss_epoch_119.png)
 *(Training and validation loss curves, showing effective learning and the point of convergence)*
 
 ### 4. Threshold Optimization & Evaluation
@@ -51,14 +51,14 @@ A key challenge in unsupervised anomaly detection is setting a reliable detectio
 - **Statistical Baseline:** A heuristic threshold was established based on the 99.9th percentile of reconstruction errors on normal data.
 - **F1-Score Optimization:** A rigorous, data-driven approach was used to find the mathematically optimal threshold that best balances precision and recall on the final labeled test set.
 
-![Precision-Recall Curve](https://raw.githubusercontent.com/mshivam-kumar/Anomaly-Detection-in-LLM-Operations/main/outputs/plots/precision_recall_curve.png)
+![Precision-Recall Curve](https://raw.githubusercontent.com/mshivam-kumar/Anomaly-Detection-in-LLM-Operations/main/outputs/plots/find_optimal_th_precision_recall_f1_curve.png)
 *(The F1-score optimization curve, identifying the threshold that provides the best overall performance)*
 
 ## Results and Key Insights
 
 The final model was evaluated using the F1-optimized threshold, revealing a realistic and highly effective detection system.
 
-![Confusion Matrix](https://raw.githubusercontent.com/mshivam-kumar/Anomaly-Detection-in-LLM-Operations/main/outputs/plots/final_confusion_matrix.png)
+![Confusion Matrix](https://raw.githubusercontent.com/mshivam-kumar/Anomaly-Detection-in-LLM-Operations/main/outputs/plots/confusion_matrix/final_confusion_matrix_optimal_th.png)
 
 ### Key Performance Metrics:
 
@@ -72,7 +72,7 @@ The final model was evaluated using the F1-optimized threshold, revealing a real
 
 The plot below, generated using a sensitive threshold for investigative purposes, demonstrates the model's full capability. It correctly flags all three ground-truth anomaly periods (shaded in orange) and uses its root cause analysis to automatically label the type of deviation it has detected.
 
-![Final Anomaly Plot (Sensitive)](https://raw.githubusercontent.com/mshivam-kumar/Anomaly-Detection-in-LLM-Operations/main/outputs/plots/final_anomaly_plot_sensitive.png)
+![Final Anomaly Plot (Sensitive)](https://raw.githubusercontent.com/mshivam-kumar/Anomaly-Detection-in-LLM-Operations/main/outputs/plots/final_anomaly_plot_sensitive_th.png)
 
 ## How to Run
 
