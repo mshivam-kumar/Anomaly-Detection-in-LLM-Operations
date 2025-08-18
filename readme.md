@@ -31,7 +31,7 @@ To train a robust model, a large-scale synthetic dataset was generated to simula
 
 An LSTM Autoencoder was trained for over 100 epochs on 9 months of purely normal data. The training process was professionalized with a `ReduceLROnPlateau` scheduler and Early Stopping to prevent overfitting.
 
-![Train/Val Loss Plot](https://raw.githubusercontent.com/mshivam-kumar/Anomaly-Detection-in-LLM-Operations/main/outputs/plots/train_val_loss_epoch_119.png)
+![Train/Val Loss Plot](https://raw.githubusercontent.com/mshivam-kumar/Anomaly-Detection-in-LLM-Operations/main/outputs/plots/train_val_loss_epoch_112.png)
 *(Training and validation loss curves, showing effective learning and convergence)*
 
 ## 3. Results: A Realistic and Actionable Detection System
