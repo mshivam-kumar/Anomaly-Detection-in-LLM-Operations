@@ -49,6 +49,15 @@ Unsupervised anomaly detection is fundamentally challenging because the model ha
 
 A final threshold of 4.0 was chosen after a sensitivity analysis, as it provided the best balance of performance.
 
+| Class        | Precision | Recall | F1-Score | Support |
+|--------------|-----------|--------|----------|---------|
+| Normal       | 1.00      | 0.99   | 1.00     | 17116   |
+| Anomaly      | 0.42      | 0.87   | 0.57     | 93      |
+| **Accuracy** |           |        | **0.99** | 17209   |
+| Macro Avg    | 0.71      | 0.93   | 0.78     | 17209   |
+| Weighted Avg | 1.00      | 0.99   | 0.99     | 17209   |
+
+
 - **F1-Score:** **0.57** (A strong, balanced score for an unsupervised task)
 - **Precision:** **42%** (Provides an actionable signal for an operations team)
 - **Recall:** **87%** (Catches the vast majority of true anomalies)
