@@ -2,6 +2,8 @@
 /data
 /data_5_months
 /notebooks
-
+/secured
+/train_val_loss_plots_3_layers
+/train_val_loss_plots
 /__pycache__
 *.pyc
