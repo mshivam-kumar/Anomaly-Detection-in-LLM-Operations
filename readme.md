@@ -53,7 +53,7 @@ A final threshold of 4.0 was chosen after a sensitivity analysis, as it provided
 - **Precision:** **42%** (Provides an actionable signal for an operations team)
 - **Recall:** **87%** (Catches the vast majority of true anomalies)
 
-![Confusion Matrix](https://raw.githubusercontent.com/mshivam-kumar/Anomaly-Detection-in-LLM-Operations/main/outputs/plots/confusion_matrix/final_confusion_matrix_optimal_th.png)
+![Confusion Matrix](https://raw.githubusercontent.com/mshivam-kumar/Anomaly-Detection-in-LLM-Operations/main/outputs/plots/confusion_matrix/normal_anomaly_th_4.0.png)
 
 ### 3.3. Key Insight: Symptom-Driven Detection
 
